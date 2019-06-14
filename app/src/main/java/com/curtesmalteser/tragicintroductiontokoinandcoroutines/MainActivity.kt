@@ -2,11 +2,18 @@ package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+
+    // Lazy Inject ViewModel
+    val myViewModel: MyViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Timber.d("myViewModel -> ${myViewModel.sayHello()}")
     }
 }
