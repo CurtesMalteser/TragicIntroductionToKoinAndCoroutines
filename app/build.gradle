@@ -35,6 +35,8 @@ dependencies {
     // include koin-android-scope & koin-android
     implementation "org.koin:koin-android-viewmodel:${rootProject.ext.koinVersion}"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.coroutinesVersion}"
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.androidArchitectureVersion}"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:${rootProject.ext.androidArchitectureVersion}"

@@ -1,8 +1,25 @@
 package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
-class MyViewModel(val repo : HelloRepository) : ViewModel() {
+class MyViewModel(private val repo : HelloRepository) : ViewModel() {
 
-    fun sayHello() = "${repo.giveHello()} from $this"
+    fun sayHello(name: String) {
+        runBlocking {
+            launch {
+                val sayHello = repo.giveHello()
+
+
+                Timber.d(sayHello)
+
+                val nameResult = repo.sayMyName(name)
+
+                Timber.d(nameResult)
+
+            }
+        }
+    }
 }

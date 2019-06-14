@@ -8,12 +8,13 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     // Lazy Inject ViewModel
-    val myViewModel: MyViewModel by viewModel()
+    private val myViewModel: MyViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Timber.d("myViewModel -> ${myViewModel.sayHello()}")
+        myViewModel.sayHello("António José")
+
     }
 }
