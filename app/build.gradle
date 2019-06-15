@@ -37,6 +37,10 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.coroutinesVersion}"
 
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
+
+    implementation "com.google.code.gson:gson:${rootProject.ext.gsonVersion}"
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.androidArchitectureVersion}"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:${rootProject.ext.androidArchitectureVersion}"
