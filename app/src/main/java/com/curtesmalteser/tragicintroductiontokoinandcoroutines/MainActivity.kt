@@ -9,7 +9,7 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     // Lazy Inject ViewModel
-    private val myViewModel: MyViewModel by viewModel()
+    private val myViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         myViewModel.repoListLiveData.observe(this, Observer {
             it?.let { repoList ->
-               repoList.forEach {repo ->
-                   Timber.d("repo -> $repo")
-               }
+                repoList.forEach { repo ->
+                    Timber.d("repo -> $repo")
+                }
             }
         })
 

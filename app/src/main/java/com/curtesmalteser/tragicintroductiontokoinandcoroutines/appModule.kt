@@ -1,9 +1,8 @@
 package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
-import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.Api
-import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.GitHubService
-import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.HelloRepository
-import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.HelloRepositoryImpl
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.GitHubApi
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.GitHubRepository
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.GitHubRepositoryImpl
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -11,15 +10,15 @@ val appModule = module {
 
     single { Controller() }
 
-    single { Api().gitHubService }
+    single { GitHubApi().gitHubService }
 
-    // single instance of HelloRepository
-    single<HelloRepository> {
-        HelloRepositoryImpl(
+    // single instance of GitHubRepository
+    single<GitHubRepository> {
+        GitHubRepositoryImpl(
             get()
         )
     }
 
     // MyViewModel ViewModel
-    viewModel { MyViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 }
