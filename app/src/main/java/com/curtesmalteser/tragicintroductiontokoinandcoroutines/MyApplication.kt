@@ -24,7 +24,7 @@ class MyApplication : Application() {
 
     }
 
-    fun startTimber() {
+    private fun startTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }
