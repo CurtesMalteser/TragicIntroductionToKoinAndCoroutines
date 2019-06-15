@@ -1,25 +1,32 @@
 package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.Repo
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.HelloRepository
 import kotlinx.coroutines.*
 import timber.log.Timber
+import kotlin.coroutines.CoroutineContext
 
 class MyViewModel(private val repo: HelloRepository) : ViewModel() {
 
-    fun runSayHello() = runBlocking {
-        try {
-            sayHello("António")
-        } catch (e: Exception) {
-            Timber.d(e)
+    private val parentJob = Job()
+
+    private val coroutineContext: CoroutineContext
+        get() = parentJob + Dispatchers.Default
+
+    private val scope = CoroutineScope(coroutineContext)
+
+    val repoListLiveData = MutableLiveData<List<Repo>>()
+
+    fun fetchRepos() {
+        scope.launch {
+            val repoList = repo.getListRepos("CurtesMalteser")
+
+            repoListLiveData.postValue(repoList)
         }
     }
 
+    fun cancelAllRequests() = coroutineContext.cancel()
 
-    private suspend fun sayHello(name: String) = coroutineScope {
-        val sayHello = async { repo.giveHello() }
-        Timber.d(sayHello.await())
-
-        val nameResult = async { repo.sayMyName(name) }
-        Timber.d(nameResult.await())
-    }
 }

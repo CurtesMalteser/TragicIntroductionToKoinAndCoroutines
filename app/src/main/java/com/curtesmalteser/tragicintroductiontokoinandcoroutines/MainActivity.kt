@@ -2,6 +2,7 @@ package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -14,7 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        myViewModel.runSayHello()
+        myViewModel.fetchRepos()
+
+        myViewModel.repoListLiveData.observe(this, Observer {
+            it?.let { repoList ->
+               repoList.forEach {repo ->
+                   Timber.d("repo -> $repo")
+               }
+            }
+        })
 
     }
 }
