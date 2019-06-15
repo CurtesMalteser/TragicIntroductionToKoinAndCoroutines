@@ -1,6 +1,7 @@
 package com.curtesmalteser.tragicintroductiontokoinandcoroutines.network
 
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 class Api {
@@ -8,7 +9,7 @@ class Api {
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.github.com")
-            //.addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
