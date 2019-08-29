@@ -2,27 +2,26 @@ package com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository
 
 import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.GitHubService
 import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.Repo
-import okhttp3.ResponseBody
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.model.request.UserDetailsRequest
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.model.response.UserDetailsResponse
 
 interface GitHubRepository {
-    suspend fun getListRepos(user: String): List<Repo>?
-    suspend fun getUserFromLocalServer(token: String, user: String): ResponseBody?
+    suspend fun signUpUser(userDetails: UserDetailsRequest): UserDetailsResponse?
+    suspend fun getUserFromLocalServer(token: String, user: String): UserDetailsResponse?
 }
 
 class GitHubRepositoryImpl(private val gitHubService: GitHubService) : BaseRepository(),
     GitHubRepository {
 
-    override suspend fun getListRepos(user: String): List<Repo>? {
-        val repoResponse = safeApiCall(
-            call = { gitHubService.listReposAsync(user).await() },
+    override suspend fun signUpUser(userDetails: UserDetailsRequest): UserDetailsResponse? {
+        return safeApiCall(
+            call = {
+                gitHubService.postSignUpAsync("", userDetails).await()
+            },
             errorMessage = "Error Fetching Repos"
         )
-
-        return repoResponse?.toList()
     }
-
-
-    override suspend fun getUserFromLocalServer(token: String, user: String): ResponseBody? {
+    override suspend fun getUserFromLocalServer(token: String, user: String): UserDetailsResponse? {
 
         return safeApiCall(
             call = {

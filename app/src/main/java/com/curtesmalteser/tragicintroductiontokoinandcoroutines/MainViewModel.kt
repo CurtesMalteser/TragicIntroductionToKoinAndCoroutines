@@ -3,6 +3,7 @@ package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.Repo
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.network.model.request.UserDetailsRequest
 import com.curtesmalteser.tragicintroductiontokoinandcoroutines.repository.GitHubRepository
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -19,14 +20,26 @@ class MainViewModel(private val repo: GitHubRepository) : ViewModel() {
 
     val repoListLiveData = MutableLiveData<List<Repo>>()
 
-    /*fun fetchRepos() {
-        scope.launch {
-            //val repoList = repo.getListRepos("CurtesMalteser")
-            val repoList = repo.getListRepos("CurtesMalteser")
+    init {
+        signUp(UserDetailsRequest(
+            firstName = "AJ",
+            lastName = "DB",
+            email ="aj@db.com",
+            password = "ajdb1234"
+        ))
+    }
 
-            repoListLiveData.postValue(repoList)
-        }
-    }*/
+  fun signUp(userDetails: UserDetailsRequest) {
+      scope.launch {
+          //val repoList = repo.getListRepos("CurtesMalteser")
+          val repoList = repo.signUpUser(userDetails = userDetails)
+
+          Timber.d("AJDB signUp -> ${repoList}")
+
+          //repoListLiveData.postValue(repoList)
+      }
+  }
+
 
     fun fetchRepos() {
         scope.launch {
@@ -36,7 +49,7 @@ class MainViewModel(private val repo: GitHubRepository) : ViewModel() {
                 user = "f7f78309-c862-4537-a7d1-a4c539942c41"
             )
 
-            Timber.d("AJDB -> ${repoList?.string()}")
+            Timber.d("AJDB -> ${repoList}")
 
             //repoListLiveData.postValue(repoList)
         }
