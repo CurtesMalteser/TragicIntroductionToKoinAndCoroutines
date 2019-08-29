@@ -9,7 +9,8 @@ class GitHubApi {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.github.com")
+            //.baseUrl("https://api.github.com")
+            .baseUrl("http://10.0.2.2:8080") // localHost
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()

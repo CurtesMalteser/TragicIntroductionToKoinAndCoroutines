@@ -1,6 +1,7 @@
 package com.curtesmalteser.tragicintroductiontokoinandcoroutines
 
 import android.app.Application
+import com.curtesmalteser.tragicintroductiontokoinandcoroutines.di.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,12 +16,7 @@ class MyApplication : Application() {
         startTimber()
 
         // Start Koin
-        startKoin {
-            androidLogger()
-            androidContext(this@MyApplication)
-            modules(appModule)
-        }
-
+        this.initKoin()
 
     }
 
